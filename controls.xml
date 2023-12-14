@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<controls>
+  <textbox id="txtFirstName" label="First Name" />
+  <textbox id="txtLastName" label="Last Name" />
+  <checkbox id="chkSubscribe" label="Subscribe to newsletter" />
+  <label id="lblStatus" text="Status: " />
+  <dropdown id="ddlCountry" label="Country">
+    <option value="us">United States</option>
+    <option value="ca">Canada</option>
+    <!-- Add more options as needed -->
+  </dropdown>
+  <sequential-dropdown id="ddlState" label="State">
+    <!-- Options will be populated dynamically based on the selected country -->
+  </sequential-dropdown>
+</controls>

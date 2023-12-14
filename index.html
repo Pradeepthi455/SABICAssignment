@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Form</title>
+</head>
+<body>
+    <form action="/submit" method="post">
+        {% for control in controls %}
+            <div>
+                {% if control.tag == 'textbox' %}
+                    <label for="{{ control.attrib.id }}">{{ control.attrib.label }}:</label>
+                    <input type="text" id="{{ control.attrib.id }}" name="{{ control.attrib.id }}" required><br>
+                {% elif control.tag == 'checkbox' %}
+                    <input type="checkbox" id="{{ control.attrib.id }}" name="{{ control.attrib.id }}">
+                    <label for="{{ control.attrib.id }}">{{ control.attrib.label }}</label><br>
+                {% elif control.tag == 'label' %}
+                    <span id="{{ control.attrib.id }}">{{ control.attrib.text }}</span><br>
+                {% elif control.tag == 'dropdown' %}
+                    <label for="{{ control.attrib.id }}">{{ control.attrib.label }}:</label>
+                    <select id="{{ control.attrib.id }}" name="{{ control.attrib.id }}">
+                        {% for option in control %}
+                            <option value="{{ option.attrib.value }}">{{ option.text }}</option>
+                        {% endfor %}
+                    </select><br>
+                {% elif control.tag == 'sequential-dropdown' %}
+                    <label for="{{ control.attrib.id }}">{{ control.attrib.label }}:</label>
+                    <select id="{{ control.attrib.id }}" name="{{ control.attrib.id }}"></select><br>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        // Populate sequential dropdown based on the selected country
+        document.getElementById('ddlCountry').addEventListener('change', function() {
+            var country = this.value;
+            var stateDropdown = document.getElementById('ddlState');
+            // Clear existing options
+            stateDropdown.innerHTML = '';
+            // Add options based on the selected country
+            if (country === 'us') {
+                var states = ['New York', 'California', 'Texas'];  // Add more states as needed
+                states.forEach(function(state) {
+                    var option = document.createElement('option');
+                    option.value = state;
+                    option.text = state;
+                    stateDropdown.add(option);
+                });
+            } else if (country === 'ca') {
+                var provinces = ['Ontario', 'Quebec', 'British Columbia'];  // Add more provinces as needed
+                provinces.forEach(function(province) {
+                    var option = document.createElement('option');
+                    option.value = province;
+                    option.text = province;
+                    stateDropdown.add(option);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
